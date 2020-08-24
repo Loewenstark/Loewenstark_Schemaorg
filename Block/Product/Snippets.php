@@ -67,6 +67,11 @@ class Snippets extends AbstractBlock {
      * @return string
      */
     protected function _toHtml() {
+        if (!$this->getProduct() || !$this->getProduct()->getId()
+                || $this->getProduct()->getStatus() == 2)
+        {
+            return '';
+        }
         return $this->getBreadCrumbHtml()."\n".$this->getProductHtml();
     }
 
@@ -92,7 +97,7 @@ class Snippets extends AbstractBlock {
             '@context' => 'http://schema.org/',
             '@type' => 'Product',
             'name' => $this->getProduct()->getName(),
-            'image' => $this->imageHelperFactory->create()->init($this->getProduct(), 'product_page_image')->getUrl(),
+            'image' => $this->imageHelperFactory->create()->init($this->getProduct(), 'product_base_image')->getUrl(),
             'description' => $this->getDescription($this->getProduct()->getDescription()),
             'sku' => $this->getProduct()->getSku(),
         );
