@@ -124,8 +124,13 @@ class Snippets extends AbstractBlock {
     protected function getDescription($string)
     {
         $string = html_entity_decode(strip_tags($string));
-        $string = preg_replace('!\s!', ' ', $string);
-        $string = mb_substr(trim($string), 0, 140, 'UTF-8').'...';
+        $string = preg_replace('/\s+/', ' ',$string);
+        $length = mb_strlen($string, 'UTF-8');
+        $string = mb_substr(trim($string), 0, 140, 'UTF-8');
+        if ($length > 140)
+        {
+            $string = $string.'...';
+        }
         return trim($string);
     }
     
