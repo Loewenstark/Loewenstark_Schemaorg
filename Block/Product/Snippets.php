@@ -124,7 +124,8 @@ class Snippets extends AbstractBlock {
     protected function getDescription($string)
     {
         $string = html_entity_decode(strip_tags($string));
-        $string = preg_replace('!\s+!', ' ', $string);
+        $string = preg_replace('!\s!', ' ', $string);
+        $string = mb_substr(trim($string), 0, 140, 'UTF-8').'...';
         return trim($string);
     }
     
@@ -173,6 +174,8 @@ class Snippets extends AbstractBlock {
                 $categoryCollection->clear();
                 $categoryCollection->addAttributeToSort('level', $categoryCollection::SORT_ORDER_DESC)
                         ->addAttributeToFilter('path', array('like' => "1/" . $this->storeManager->getStore()->getRootCategoryId() . "/%"))
+                        ->addIsActiveFilter()
+                        ->joinUrlRewrite()
                         ->setPageSize(1)
                         ->setCurPage(1);
                 $breadcrumbCategories = $categoryCollection->getFirstItem()
