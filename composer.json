@@ -1,0 +1,26 @@
+{
+  "name": "loewenstark/schemaorg",
+  "description": "Schemaorg for Magento 2",
+  "require": {
+    "php": "~7.0.0|~7.1.0|~7.2.0|~7.3.0|~7.4.0",
+    "magento/module-store": "*",
+    "magento/module-catalog": "*",
+    "magento/framework": "*"
+  },
+  "type": "magento2-module",
+  "license": "OSL-3.0",
+  "authors": [
+    {
+      "name": "Mathis Klooss",
+      "email": "mathis@mage-profis.de"
+    }
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Loewenstark\\Schemaorg\\": ""
+    }
+  }
+}
