@@ -100,6 +100,7 @@ class Snippets extends AbstractBlock {
             'image' => $this->imageHelperFactory->create()->init($this->getProduct(), 'product_base_image')->getUrl(),
             'description' => $this->getDescription($this->getProduct()->getDescription()),
             'sku' => $this->getProduct()->getSku(),
+            'gtin8' => $this->getProduct()->getEan(),
         );
         if ($this->getProduct()->getManufacturer())
         {
@@ -113,6 +114,7 @@ class Snippets extends AbstractBlock {
             'priceCurrency' => $this->getCurrencyCode(),
             'price' => number_format($this->getProduct()->getFinalPrice(), 2, '.', ''),
             'availability' => 'http://schema.org/InStock',
+            'url' => $this->getProduct()->getProductUrl(),
         );
         if (!$this->getProduct()->isSaleable())
         {
