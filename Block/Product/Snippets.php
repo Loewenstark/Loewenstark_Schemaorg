@@ -120,11 +120,19 @@ class Snippets extends AbstractBlock {
         {
             $array['offers']['availability'] = 'http://schema.org/SoldOut';
         }
+        //return '<pre>'.$this->jsonEncode($array).'</pre>';
         return '<script type="application/ld+json">'.$this->jsonEncode($array).'</script>';
     }
 
+    /**
+     * 
+     * @param srting $string
+     * @return string
+     */
     protected function getDescription($string)
     {
+        $string = trim($string);
+        $string = str_replace('&nbsp;', ' ', $string);
         $string = html_entity_decode(strip_tags($string));
         $string = preg_replace('/\s+/', ' ',$string);
         $length = mb_strlen($string, 'UTF-8');
@@ -200,12 +208,9 @@ class Snippets extends AbstractBlock {
 
     protected function jsonEncode($string)
     {
-        $options = JSON_UNESCAPED_UNICODE;
+        $options = JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES;
         $json = json_encode($string, $options);
-        $json = str_replace('\\/','/', $json);      // less data
         $json = str_replace("\\u00a0", ' ', $json); // json space to normal space
-        $json = str_replace("\\ ", ' ', $json);     // remove multiple slashes
-        $json = str_replace("\\", "\\\\", $json);   // remove multiple slashes
         return $json;
     }
     
